@@ -19,6 +19,7 @@ public class Privado extends javax.swing.JFrame implements Observador{
         this.usuario = usuario;
         this.setTitle("[" + RMIChatCliente.getInstance().getUsuario() + "]: Chat privado con " + usuario);
         RMIChatCliente.observar(this);
+        mensaje.requestFocus();
     }
     
     @SuppressWarnings("unchecked")
@@ -63,6 +64,9 @@ public class Privado extends javax.swing.JFrame implements Observador{
         mensaje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 mensajeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                mensajeFocusLost(evt);
             }
         });
 
@@ -137,6 +141,10 @@ public class Privado extends javax.swing.JFrame implements Observador{
     private void mensajeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mensajeFocusGained
         mensaje.setText("");
     }//GEN-LAST:event_mensajeFocusGained
+
+    private void mensajeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mensajeFocusLost
+       mensaje.requestFocus();
+    }//GEN-LAST:event_mensajeFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

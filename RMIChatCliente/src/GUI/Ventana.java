@@ -7,6 +7,7 @@ package GUI;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultCaret;
@@ -38,6 +39,7 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
            
         DefaultCaret caret = (DefaultCaret)chat.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        texto.requestFocus();
     }
     
     
@@ -149,6 +151,14 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
         texto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textoFocusLost(evt);
+            }
+        });
+        texto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textoKeyPressed(evt);
             }
         });
 
@@ -279,11 +289,15 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        enviar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void enviar(){
         if (!"".equals(texto.getText()))
             RMIChatCliente.getInstance().enviarMensaje(texto.getText());
         texto.setText("");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         RMIChatCliente.getInstance().desconectarServidor();
     }//GEN-LAST:event_formWindowClosing
@@ -303,6 +317,17 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
     private void usuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioFocusGained
         usuario.setText("");
     }//GEN-LAST:event_usuarioFocusGained
+
+    private void textoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textoFocusLost
+
+        texto.requestFocus();
+    }//GEN-LAST:event_textoFocusLost
+
+    private void textoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            enviar();
+        }
+    }//GEN-LAST:event_textoKeyPressed
 
     public static void main(String args[]) {
         
