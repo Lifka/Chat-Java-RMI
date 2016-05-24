@@ -8,9 +8,9 @@ Práctica 3 Diseño de Sistemas Distribuidos - Char con Java RMI
 rmiregistry & 
 
 ### Clientes  
-cd build/classes/
+cd build/classes/ 
 java -cp . GUI/Ventana  
 
 ### Servidor  
-cd build/classes/
+cd build/classes/ 
 java -cp . GUI/Control  
