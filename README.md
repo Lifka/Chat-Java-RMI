@@ -9,10 +9,8 @@ Difusión cliente servidor y chats privados P2P entre clientes.
 #### RMI  
 rmiregistry & 
 
-### Cliente  
-cd RMIChatCliente/build/classes/  
-java -cp . GUI/Ventana  
+### Cliente   
+java -cp RMIChatCliente/build/classes/ GUI/Ventana  
 
-### Servidor  
-cd RMIChatServidor/build/classes/   
-java -cp . GUI/Control  
+### Servidor    
+java -cp RMIChatServidor/build/classes/ GUI/Control  
