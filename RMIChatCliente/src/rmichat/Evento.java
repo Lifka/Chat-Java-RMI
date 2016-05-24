@@ -11,6 +11,6 @@ public enum Evento {
     /************  Eventos para privado: P2P      **************/
     NUEVO_CONTACTO, ELIMINAR_CONTACTO, MENSAJE_PRIVADO, 
     DESCONECTADO_PRIVADO, INICIAR_PRIVADO,
-    CONEXION_CERRADA_PRIVADO
+    CONEXION_CERRADA_PRIVADO, ACTUALIZAR_PRIVADO
     
 }

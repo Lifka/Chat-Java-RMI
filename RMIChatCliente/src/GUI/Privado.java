@@ -4,6 +4,8 @@
  ***************************************/
 package GUI;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import rmichat.Evento;
 import rmichat.Observador;
@@ -19,7 +21,13 @@ public class Privado extends javax.swing.JFrame implements Observador{
         this.usuario = usuario;
         this.setTitle("[" + RMIChatCliente.getInstance().getUsuario() + "]: Chat privado con " + usuario);
         RMIChatCliente.observar(this);
-        mensaje.requestFocus();
+        mensaje.setText("Nuevo mensaje...");
+        mensaje.setForeground(new Color(171,174,174));
+    }
+    
+    public void actualizar(){
+        jButton2.setEnabled(true);
+        mensaje.setEnabled(true);
     }
     
     @SuppressWarnings("unchecked")
@@ -54,6 +62,11 @@ public class Privado extends javax.swing.JFrame implements Observador{
         });
 
         jButton2.setText("Enviar");
+        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton2FocusGained(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -67,6 +80,11 @@ public class Privado extends javax.swing.JFrame implements Observador{
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 mensajeFocusLost(evt);
+            }
+        });
+        mensaje.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                mensajeKeyPressed(evt);
             }
         });
 
@@ -128,23 +146,37 @@ public class Privado extends javax.swing.JFrame implements Observador{
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        enviar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void enviar(){
         if (!"".equals(mensaje.getText())){
             RMIChatCliente.getInstance().enviarMensajePrivado(usuario, mensaje.getText());
             mensaje.setText("");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
        desconectar();
     }//GEN-LAST:event_formWindowClosing
 
     private void mensajeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mensajeFocusGained
         mensaje.setText("");
+        mensaje.setForeground(new Color(0,0,0));
     }//GEN-LAST:event_mensajeFocusGained
 
     private void mensajeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mensajeFocusLost
-       mensaje.requestFocus();
+
     }//GEN-LAST:event_mensajeFocusLost
+
+    private void mensajeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_mensajeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            enviar();
+        }
+    }//GEN-LAST:event_mensajeKeyPressed
+
+    private void jButton2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton2FocusGained
+        mensaje.requestFocus();
+    }//GEN-LAST:event_jButton2FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -182,6 +214,14 @@ public class Privado extends javax.swing.JFrame implements Observador{
                             " ha cerrado el chat.\n");
                     jButton2.setEnabled(false);
                     mensaje.setEnabled(false);
+                }
+                break;
+            case ACTUALIZAR_PRIVADO:
+                if (notificacion[0].equals(usuario)){
+                    chat_privado.setText(chat_privado.getText() + notificacion[0] +
+                            " está conectado.\n");
+                    actualizar();
+                    
                 }
                 break;
             default:

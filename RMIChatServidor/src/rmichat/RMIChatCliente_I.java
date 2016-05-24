@@ -20,4 +20,5 @@ public interface RMIChatCliente_I extends Remote{
     public void enviarMensajePrivado(String mensaje, String usuario) throws RemoteException;
     public void recibirMensajePrivado(String usuario_conexion, String usuario_mensaje, String mensaje) throws RemoteException;
     public void indicarDesconexionPrivado(String usuario) throws RemoteException;
+    public void revivirChatPrivado(String usuario) throws RemoteException;
 }

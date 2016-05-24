@@ -4,6 +4,7 @@
  ***************************************/
 package GUI;
 
+import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -39,7 +40,8 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
            
         DefaultCaret caret = (DefaultCaret)chat.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        texto.requestFocus();
+        texto.setText("Nuevo mensaje...");
+        texto.setForeground(new Color(171,174,174));
     }
     
     
@@ -147,6 +149,7 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
         chat.setRows(5);
         jScrollPane1.setViewportView(chat);
 
+        texto.setForeground(new java.awt.Color(171, 174, 174));
         texto.setText("...");
         texto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -304,6 +307,7 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
 
     private void textoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textoFocusGained
         texto.setText("");
+        texto.setForeground(new Color(0,0,0));
     }//GEN-LAST:event_textoFocusGained
 
     private void hostFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hostFocusGained
@@ -319,8 +323,7 @@ public class Ventana extends javax.swing.JFrame implements Observador, ItemListe
     }//GEN-LAST:event_usuarioFocusGained
 
     private void textoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textoFocusLost
-
-        texto.requestFocus();
+        
     }//GEN-LAST:event_textoFocusLost
 
     private void textoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoKeyPressed

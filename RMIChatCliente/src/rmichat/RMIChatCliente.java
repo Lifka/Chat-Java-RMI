@@ -229,8 +229,10 @@ public class RMIChatCliente implements RMIChatCliente_I{
     /***************    Chat privado (conexión)  *******************/
     @Override
     public void chatPrivadoCon(String nombre, RMIChatCliente_I usu1){
-        clientes.put(nombre, usu1);
-        notificar(Evento.INICIAR_PRIVADO, new String[]{nombre});
+        if (!clientes.containsKey(nombre)){
+            clientes.put(nombre, usu1);
+            notificar(Evento.INICIAR_PRIVADO, new String[]{nombre});
+        }
     }
     
     public boolean iniciarChatPrivadoCon(String usu2){
@@ -239,6 +241,14 @@ public class RMIChatCliente implements RMIChatCliente_I{
             result = true; 
             try{
                 servidor.chatPrivadoEntre(getUsuario(), usu2);
+                
+                try{
+                    clientes.get(usu2).revivirChatPrivado(getUsuario());
+                } catch(Exception e){ 
+                /***/System.err.println(ColorTerminal.RED + "(!)" + ColorTerminal.RESET + 
+                    " Error al revivir al servidor de chat privado: " 
+                     + e.getMessage());
+                }
                   
                 
                 
@@ -249,8 +259,15 @@ public class RMIChatCliente implements RMIChatCliente_I{
                         + e.getMessage());
                 notificar(Evento.FIN_CONEXION, new String[]{});
             }
+        } else {
+                result = false;
         }
         return result;
+    }
+    
+    @Override
+    public void revivirChatPrivado(String usuario){
+           notificar(Evento.ACTUALIZAR_PRIVADO, new String[]{usuario});
     }
     
     
@@ -260,7 +277,6 @@ public class RMIChatCliente implements RMIChatCliente_I{
     public void indicarDesconexionPrivado(String usuario) {
         
             notificar(Evento.CONEXION_CERRADA_PRIVADO, new String[]{usuario});
-            clientes.remove(usuario);
     }
     
     public void cerrarPrivado(String usuario){
