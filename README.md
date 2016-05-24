@@ -14,3 +14,5 @@ java -cp RMIChatCliente/build/classes/ GUI/Ventana
 
 ### Servidor    
 java -cp RMIChatServidor/build/classes/ GUI/Control  
+
+* Proyectos en NetBeans 8.1
